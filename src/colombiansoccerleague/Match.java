@@ -29,6 +29,9 @@ public class Match {
         lstStringTeams.add("Independiente Medellín");*/
 
     }
+    public ArrayList<Team> getLstTeams(){
+        return lstTeams;
+    }
 
     //Create multiple teams objects with the name attribute given by the String ArrayList with names.
     public void insertTeams(ArrayList<String> lstStringTeams, ArrayList<Team> lstTeams) {
@@ -132,10 +135,14 @@ public class Match {
             insertTeams(lstStringTeams,lstTeams);
         }   
     }
+    public int lstSize(){
+       var teamSize= lstTeams.size();
+       return teamSize;
+    }
 
      public void round() {
         checkListSize();
-        var teamSize= lstTeams.size();
+        var teamSize= lstSize();
         for (int i = 0; i < teamSize / 2; i++){
            playMatch(); 
             if (i== teamSize/2 -1){

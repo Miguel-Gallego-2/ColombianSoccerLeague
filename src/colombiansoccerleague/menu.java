@@ -2,6 +2,7 @@ package colombiansoccerleague;
 
 
 import colombiansoccerleague.Match;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -14,13 +15,16 @@ import javax.swing.table.DefaultTableModel;
  * @author migue
  */
 public class menu extends javax.swing.JFrame {
-    String[] COLUMNS = {"Name", "Name", "Stock"};
+    Match test = new Match();
+    ArrayList<Team> retrievedList = test.getLstTeams();
+    String[] COLUMNS = {"Name", "W", "L","D","GS","GC","M","Pts"};
 
     /**
      * Creates new form menu
      */
     public menu() {
         initComponents();
+        test.checkListSize();
         initObjects();
     }
 
@@ -59,28 +63,18 @@ public class menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("Name");
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("W");
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("L");
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("D");
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("G S");
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setHeaderValue("G C");
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setHeaderValue("M");
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setHeaderValue("Pts");
-        }
 
         desktopPane.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 50, 310, 320);
+        jScrollPane1.setBounds(10, 50, 540, 290);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,11 +90,11 @@ public class menu extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         desktopPane.add(jScrollPane2);
-        jScrollPane2.setBounds(310, 50, 330, 170);
+        jScrollPane2.setBounds(640, 70, 330, 170);
 
         jButton1.setText("jButton1");
         desktopPane.add(jButton1);
-        jButton1.setBounds(540, 390, 75, 23);
+        jButton1.setBounds(630, 10, 75, 23);
 
         PRound.setText("Play Round");
         PRound.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,11 +103,11 @@ public class menu extends javax.swing.JFrame {
             }
         });
         desktopPane.add(PRound);
-        PRound.setBounds(430, 390, 90, 23);
+        PRound.setBounds(500, 10, 90, 23);
 
         jButton3.setText("jButton3");
         desktopPane.add(jButton3);
-        jButton3.setBounds(330, 390, 75, 23);
+        jButton3.setBounds(380, 10, 75, 23);
 
         jLabel1.setText("jLabel1");
         desktopPane.add(jLabel1);
@@ -186,13 +180,13 @@ public class menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,7 +198,7 @@ public class menu extends javax.swing.JFrame {
 
     private void PRoundMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PRoundMouseClicked
         Match match = new Match();
-        match.round();        // TODO add your handling code here:
+        match.round(); 
     }//GEN-LAST:event_PRoundMouseClicked
 
     /**
@@ -243,19 +237,24 @@ public class menu extends javax.swing.JFrame {
     }
     private void initObjects() {
 
-        String[][] data = new String[10][3];
+        String[][] data = new String[10][8];
 
-        for (int i = 0; i < 10; i++) {
-            data[i][0] = (i + 1) + "";
-            data[i][1] = "Product" + (i + 1);
-            data[i][2] = (i + 10) + "";
+        for (int i = 0; i < test.lstSize(); i++) {
+            data[i][0] =retrievedList.get(i).getName();
+            data[i][1] = String.valueOf(retrievedList.get(i).getWins());
+            data[i][2] = String.valueOf(retrievedList.get(i).getLosses());
+            data[i][3] = String.valueOf(retrievedList.get(i).getDraws());
+            data[i][4] = String.valueOf(retrievedList.get(i).getGoalsScored());
+            data[i][5] = String.valueOf(retrievedList.get(i).getGoalsConceded());
+            data[i][6] = String.valueOf(retrievedList.get(i).getMatchesPlayed());
+            data[i][7] = String.valueOf(retrievedList.get(i).getPoints());
         }
 
         DefaultTableModel tableModel = new DefaultTableModel(data, COLUMNS) {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return true;
+                return false;
             }
 
         };

@@ -13,9 +13,18 @@ public class Team {
     private int points;
     private int goalsScored;
     private int goalsConceded;
+    private int matchesPlayed;
+
     private boolean playing;
     private ArrayList<Team> playedTeam =new ArrayList<>() ;
     private int idTeam;
+    public int getMatchesPlayed() {
+        return playedTeam.size();
+    }
+
+    public void setMatchesPlayed(int matchesPlayed) {
+        this.matchesPlayed = matchesPlayed;
+    }
 
     public Team() {
     }
@@ -116,6 +125,7 @@ public class Team {
         this.playedTeam.add(team);
     
     }
+   
     
 
     public String toString(Team team) {
