@@ -121,7 +121,7 @@ public class Team {
     public void setPlayedTeam(ArrayList<Team> playedTeam) {
         this.playedTeam = playedTeam;
     }
-    public void updatedList (Team team){
+    public void updatePlayedTeamList (Team team){
         this.playedTeam.add(team);
     
     }

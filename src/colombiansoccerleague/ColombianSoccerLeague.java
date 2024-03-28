@@ -8,10 +8,10 @@ public class ColombianSoccerLeague {
     public static void ain(String[] args) {
     Match match = new Match();
         System.out.println("round 1");
-    match.round();
+    match.playRound();
         System.out.println("round 2");
-    match.round();
+    match.playRound();
         System.out.println("round 3");
-    match.round();
+    match.playRound();
     }
 }

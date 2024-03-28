@@ -24,7 +24,7 @@ public class menu extends javax.swing.JFrame {
      */
     public menu() {
         initComponents();
-        test.checkListSize();
+        test.initTeamList();
         initObjects();
     }
 
@@ -74,7 +74,7 @@ public class menu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         desktopPane.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 50, 540, 290);
+        jScrollPane1.setBounds(20, 70, 540, 270);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -90,11 +90,11 @@ public class menu extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         desktopPane.add(jScrollPane2);
-        jScrollPane2.setBounds(640, 70, 330, 170);
+        jScrollPane2.setBounds(590, 70, 380, 170);
 
         jButton1.setText("jButton1");
         desktopPane.add(jButton1);
-        jButton1.setBounds(630, 10, 75, 23);
+        jButton1.setBounds(860, 300, 75, 23);
 
         PRound.setText("Play Round");
         PRound.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -103,15 +103,20 @@ public class menu extends javax.swing.JFrame {
             }
         });
         desktopPane.add(PRound);
-        PRound.setBounds(500, 10, 90, 23);
+        PRound.setBounds(590, 300, 90, 23);
 
         jButton3.setText("jButton3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         desktopPane.add(jButton3);
-        jButton3.setBounds(380, 10, 75, 23);
+        jButton3.setBounds(590, 260, 75, 23);
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Colombian Soccer League");
         desktopPane.add(jLabel1);
-        jLabel1.setBounds(270, 20, 38, 16);
+        jLabel1.setBounds(450, 20, 160, 16);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -198,8 +203,11 @@ public class menu extends javax.swing.JFrame {
 
     private void PRoundMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PRoundMouseClicked
         Match match = new Match();
-        match.round(); 
+        match.playRound(); 
     }//GEN-LAST:event_PRoundMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,11 +243,12 @@ public class menu extends javax.swing.JFrame {
             }
         });
     }
+    
     private void initObjects() {
 
         String[][] data = new String[10][8];
 
-        for (int i = 0; i < test.lstSize(); i++) {
+        for (int i = 0; i < test.getTeamsLstSize(); i++) {
             data[i][0] =retrievedList.get(i).getName();
             data[i][1] = String.valueOf(retrievedList.get(i).getWins());
             data[i][2] = String.valueOf(retrievedList.get(i).getLosses());

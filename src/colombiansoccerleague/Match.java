@@ -25,8 +25,8 @@ public class Match {
         lstStringTeams.add("América de Cali");
         lstStringTeams.add("Independiente Santa Fe");
         lstStringTeams.add("Deportivo Cali");
-        /*lstStringTeams.add("Deportes Tolima");
-        lstStringTeams.add("Independiente Medellín");*/
+        lstStringTeams.add("Deportes Tolima");
+        lstStringTeams.add("Independiente Medellín");
 
     }
     public ArrayList<Team> getLstTeams(){
@@ -108,41 +108,42 @@ public class Match {
         return team;
     }
 
+    
+    public void initTeamList(){
+      if (lstTeams.isEmpty()) {
+            insertNameTeams(lstStringTeams);
+            insertTeams(lstStringTeams,lstTeams);
+        }   
+    }
+    public int getTeamsLstSize(){
+       var teamSize= lstTeams.size();
+       return teamSize;
+    }
     public void playMatch() {
         Team team1;
         Team team2; 
         do {
             team1 = getTeam1();
             team2 = getTeam2();
-           // if (!team1.isPlaying() && !team2.isPlaying() && !team1.equals(team2)) {
-          //      break;
-          //  }
-        }    
-        while (team1.getPlayedTeam().contains(team2) || team1.equals(team2) || team1.isPlaying() || team2.isPlaying());
+            //if (!team1.isPlaying() && !team2.isPlaying() && !team1.equals(team2)) {
+            //    break;
+           // }
+        }                   //   False || Flase || 
+        while (team1.getPlayedTeam().contains(team2) || team1.equals(team2) || team1.isPlaying() || team2.isPlaying()||team2.getPlayedTeam().contains(team1));
             faceOff(team1, team2);
             team1.setPlaying(true);
             team2.setPlaying(true);
-            team1.updatedList(team2);
-            team2.updatedList(team1);
+            team1.updatePlayedTeamList(team2);
+            team2.updatePlayedTeamList(team1);
             System.out.println(team1.toString(team1));
             System.out.println(team2.toString(team2));
             System.out.println("other macht");
-    }
-    
-    public void checkListSize(){
-      if (lstTeams.isEmpty()) {
-            insertNameTeams(lstStringTeams);
-            insertTeams(lstStringTeams,lstTeams);
-        }   
-    }
-    public int lstSize(){
-       var teamSize= lstTeams.size();
-       return teamSize;
+        //lstTeams.forEach(Team->Team.setPlaying(false));
     }
 
-     public void round() {
-        checkListSize();
-        var teamSize= lstSize();
+     public void playRound() {
+        initTeamList();
+        var teamSize= getTeamsLstSize();
         for (int i = 0; i < teamSize / 2; i++){
            playMatch(); 
             if (i== teamSize/2 -1){
@@ -150,12 +151,12 @@ public class Match {
             }
         }
  }
-    public void tournament(){ 
-        checkListSize();
+    public void playTournament(){ 
+        initTeamList();
         var NUMROUNDS = lstTeams.size()-1;
         for (int i=0; i<NUMROUNDS; i++)
             {
-            round();
+            playRound();
         }
     }
 }
