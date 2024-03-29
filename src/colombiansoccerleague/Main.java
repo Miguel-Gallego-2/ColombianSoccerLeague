@@ -203,6 +203,7 @@ public class Main extends javax.swing.JFrame {
             initObjects();
         }
         else{
+            System.out.println("holaa putas");
             //Poner un alert que diga que ya se acabo
         }
         
@@ -223,7 +224,9 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPlayTournamentActionPerformed
 
     private void btnPlayMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayMatchActionPerformed
-        if (counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
+        game.playMatch();
+        initObjects();
+        /*if (counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
             counter += 1;
             game.playMatch();
             //newList = game.playMatch();
@@ -231,8 +234,9 @@ public class Main extends javax.swing.JFrame {
             initObjects();
         }
         else{
+            System.out.println("Hiiiiiiiiiiii");
             //Poner un alert que diga que ya se acabo
-        }
+        }*/
     }//GEN-LAST:event_btnPlayMatchActionPerformed
 
     public void updatedLstStats(){
