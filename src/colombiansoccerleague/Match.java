@@ -7,32 +7,42 @@ package colombiansoccerleague;
 import java.util.ArrayList;
 
 public class Match {
-
+    public int counter = 0;
+    public Team team1;
+    public Team team2;
     private Integer index;
     public ArrayList<String> lstStringTeams = new ArrayList<>();
     public ArrayList<Team> lstTeams = new ArrayList<>();
-
+    public ArrayList<Team> temptLstTeams = new ArrayList<>();
+    
     public void showList() {
         System.out.print(lstTeams);
     }
-
+    
     public Match() {
-
     }
 
     //Create a method to add the name of the Teams in an ArrayList.
     public void insertNameTeams(ArrayList<String> lstStringTeams) {
-        lstStringTeams.add("Atletico Nacional");
-        lstStringTeams.add("América de Cali");
-        lstStringTeams.add("Independiente Santa Fe");
-        lstStringTeams.add("Deportivo Cali");
-        lstStringTeams.add("Deportes Tolima");
-        lstStringTeams.add("Independiente Medellín");
-
+        lstStringTeams.add("Nacional");
+        lstStringTeams.add("Patriotas");
+        lstStringTeams.add("Santa Fe");
+        lstStringTeams.add("Cali");
+        lstStringTeams.add("Tolima");
+        lstStringTeams.add("Medellín");
+        /*lstStringTeams.add("Patriotas");
+        lstStringTeams.add("Aguilas Doradas");
+        lstStringTeams.add("Millonarios");
+        lstStringTeams.add("Once Caldas");*/
     }
-
+   
     public ArrayList<Team> getLstTeams() {
         return lstTeams;
+    }
+    
+    public int getTeamsLstSize() {
+        var teamSize = lstTeams.size();
+        return teamSize;
     }
 
     //Create multiple teams objects with the name attribute given by the String ArrayList with names.
@@ -40,15 +50,20 @@ public class Match {
         for (int i = 0; i < lstStringTeams.size(); i++) {
             Team team = new Team();
             team.setName(lstStringTeams.get(i));
-            team.setIdTeam(i);
             lstTeams.add(team);
         }
     }
-
+    
+    public void initTeamList() {
+        if (lstTeams.isEmpty()) {
+            insertNameTeams(lstStringTeams);
+            insertTeams(lstStringTeams, lstTeams);
+        }
+    }
+    
     //Get a Random index to pick a team in the Teams ArrayList.
     public int getRandomTeamIndex(ArrayList<Team> lstTeams) {
-        int a = lstTeams.size();
-        index = (int) (Math.random() * a);
+        index = (int) (Math.random() * lstTeams.size());
         return index;
     }
 
@@ -91,49 +106,34 @@ public class Match {
             losser(team2, goals2, goals1);
         }
     }
-
-    public Team getTeam1() {
-        int random1 = getRandomTeamIndex(lstTeams);
-        /*Team team = lstTeams.stream()
-                .filter(x -> x.getName().equals(lstTeams.get(random1).getName()))
-                .findFirst()
-                .orElse(new Team());*/
-        return lstTeams.get(random1);
-    }
-
-    public Team getTeam2() {
-        int random2 = getRandomTeamIndex(lstTeams);
-        /*Team team = lstTeams.stream()
-                .filter(x -> x.getName().equals(lstTeams.get(random2).getName()))
-                .findFirst()
-                .orElse(new Team());*/
-        return lstTeams.get(random2);
-    }
-
-    public void initTeamList() {
-        if (lstTeams.isEmpty()) {
-            insertNameTeams(lstStringTeams);
-            insertTeams(lstStringTeams, lstTeams);
+    
+    public void getTeam1(){
+        int random1;
+        do{
+            random1 = getRandomTeamIndex(lstTeams);
+            team1 = lstTeams.get(random1);
+            System.out.println("Team 1 nombre "+team1.getName());
         }
+        while(team1.isPlaying());
     }
-
-    public int getTeamsLstSize() {
-        var teamSize = lstTeams.size();
-        return teamSize;
-    }
-
+    
+    public void getTeam2(){
+    int indTeam2;
+        for(Team e: lstTeams){
+            if(!team1.getPlayedTeam().contains(e)){
+                indTeam2 = lstTeams.indexOf(e);
+                team2 = lstTeams.get(indTeam2);
+                System.out.println("Team 2 nombre "+team2.getName());
+                if(!team2.isPlaying() && !team1.equals(team2) ){
+                    break;
+                }
+            } 
+        }
+    } 
+    
     public void playMatch() {
-        Team team1;
-        Team team2;
-        do {
-            team1 = getTeam1();
-            team2 = getTeam2();
-            //if (!team1.isPlaying() && !team2.isPlaying() && !team1.equals(team2)) {
-            //    break;
-            // }
-        } //   False || Flase || 
-        while (team1.getPlayedTeam().contains(team2) || team1.equals(team2) ||
-                team1.isPlaying() || team2.isPlaying());
+        getTeam1();
+        getTeam2();
         faceOff(team1, team2);
         team1.setPlaying(true);
         team2.setPlaying(true);
@@ -141,30 +141,45 @@ public class Match {
         team2.updatePlayedTeamList(team1);
         System.out.println(team1.toString(team1));
         System.out.println(team2.toString(team2));
-        System.out.println("other macht");
-        int counter =0;
-        for(int i = 0 ; i < getTeamsLstSize() ; i++){
-            if(lstTeams.get(i).isPlaying()){counter += 1;}}
-        if (counter == getTeamsLstSize()){
-        lstTeams.forEach(Team->Team.setPlaying(false));}
-    }
-
-    public void playRound() {
-        initTeamList();
-        var teamSize = getTeamsLstSize();
-        for (int i = 0; i < teamSize / 2; i++) {
-            playMatch();
-            if (i == teamSize / 2 - 1) {
-                lstTeams.forEach(Team -> Team.setPlaying(false));
-            }
+        counter +=1;
+        if (counter == getTeamsLstSize()/2){
+            lstTeams.forEach(Team->Team.setPlaying(false));
+            counter=0;
         }
     }
-
+    
+    public void playRound() {
+        initTeamList();
+        for (int i = 0; i < getTeamsLstSize() / 2; i++) {
+            System.out.println("MATCH "+ (i+1));
+            playMatch();
+            /*if (i == (getTeamsLstSize()/2) - 1) {
+                lstTeams.forEach(Team -> Team.setPlaying(false));
+            }*/
+        }
+    }
+    
     public void playTournament() {
         initTeamList();
         var NUMROUNDS = lstTeams.size() - 1;
         for (int i = 0; i < NUMROUNDS; i++) {
+            System.out.println("ROUND "+ (i+1));
             playRound();
         }
+        printList();
+    }
+    
+    public void printList(){
+        for (int i = 0; i < getTeamsLstSize(); i++) {
+            System.out.println(lstTeams.get(i).getName());
+            System.out.println(lstTeams.get(i).getWins());
+            System.out.println(lstTeams.get(i).getLosses());
+            System.out.println(lstTeams.get(i).getDraws());
+            System.out.println(lstTeams.get(i).getGoalsScored());
+            System.out.println(lstTeams.get(i).getGoalsConceded());
+            System.out.println(lstTeams.get(i).getMatchesPlayed());
+            System.out.println(lstTeams.get(i).getPoints());
+        }
+
     }
 }

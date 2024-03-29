@@ -14,22 +14,13 @@ public class Team {
     private int goalsScored;
     private int goalsConceded;
     private int matchesPlayed;
-
     private boolean playing;
     private ArrayList<Team> playedTeam =new ArrayList<>() ;
-    private int idTeam;
-    public int getMatchesPlayed() {
-        return playedTeam.size();
-    }
-
-    public void setMatchesPlayed(int matchesPlayed) {
-        this.matchesPlayed = matchesPlayed;
-    }
-
+    
     public Team() {
     }
 
-    public Team(String name, int wins, int losses, int draws, int points, int goalsScored, int goalsConceded, boolean playing, ArrayList<Team> playedTeam, int idTeam) {
+    public Team(String name, int wins, int losses, int draws, int points, int goalsScored, int goalsConceded, boolean playing, ArrayList<Team> playedTeam) {
         this.name = name;
         this.wins = wins;
         this.losses = losses;
@@ -39,17 +30,9 @@ public class Team {
         this.goalsConceded = goalsConceded;
         this.playing = playing;
         this.playedTeam = playedTeam;
-        this.idTeam = idTeam;
+        
     }
 
-    public int getIdTeam() {
-        return idTeam;
-    }
-
-    public void setIdTeam(int idTeam) {
-        this.idTeam = idTeam;
-    }
-    
     public String getName() {
         return name;
     }
@@ -121,18 +104,22 @@ public class Team {
     public void setPlayedTeam(ArrayList<Team> playedTeam) {
         this.playedTeam = playedTeam;
     }
+    public int getMatchesPlayed() {
+        return playedTeam.size();
+    }
+
+    public void setMatchesPlayed(int matchesPlayed) {
+        this.matchesPlayed = matchesPlayed;
+    }
+
     public void updatePlayedTeamList (Team team){
         this.playedTeam.add(team);
     
     }
-   
-    
-
     public String toString(Team team) {
         return "Team{" + "name=" + team.getName() + ", wins=" + team.getWins() + 
                 ", losses=" + team.getLosses() + ", draws=" + team.getDraws() + ", points=" + team.getPoints() + 
                 ", goalsScored=" + team.getGoalsScored() + ", goalsConceded=" + team.getGoalsConceded() + 
                 ", playing=" + team.isPlaying() + ", playedTeam=" + team.getPlayedTeam()+ '}';
-    }
-    
+    } 
 }

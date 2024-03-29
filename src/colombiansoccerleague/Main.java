@@ -9,19 +9,17 @@ public class Main extends javax.swing.JFrame {
     ArrayList<Team> lstTeams = game.getLstTeams();
     String[] COLUMNS = {"Name", "W", "L","D","GS","GC","M","Pts"};
     DefaultTableModel tableModel;
-    ArrayList<Team> newList;
+    ArrayList<Team> newList = new ArrayList<>();
     int counter = 0;
     
     public Main() {
        initComponents();
        game.initTeamList();
        initObjects();
-       
-       
     }
     
     private void initObjects() {
-        String[][] data = new String[game.getTeamsLstSize()][8];
+        String[][] data = new String [game.getTeamsLstSize()][8];
         for (int i = 0; i < game.getTeamsLstSize(); i++) {
             data[i][0] = lstTeams.get(i).getName();
             data[i][1] = String.valueOf(lstTeams.get(i).getWins());
@@ -195,38 +193,32 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlayRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayRoundActionPerformed
-        if (counter<=game.getTeamsLstSize()){
+        if (counter < (game.getTeamsLstSize()/2) * (game.getTeamsLstSize() - 2) + 1 ){
             counter += game.getTeamsLstSize()/2; 
             game.playRound();
             //newList = game.playRound();
             //updatedLstStats();
-            initObjects();
+            updatedLstStats();
         }
         else{
-            System.out.println("holaa putas");
+        
             //Poner un alert que diga que ya se acabo
-        }
-        
-        
+        }  
     }//GEN-LAST:event_btnPlayRoundActionPerformed
 
     private void btnPlayTournamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayTournamentActionPerformed
-        if (counter==0){
+        if(counter==0){
             game.playTournament();
             //newList = game.playTournament();
             //updatedLstStats();
-            initObjects();
-            counter += game.getTeamsLstSize()/2*(game.getTeamsLstSize()-1);
-        }
-        else{
-            //Poner un alert que diga que ya se acabo
-        }
+            updatedLstStats();
+            counter += game.getTeamsLstSize()/2 * (game.getTeamsLstSize()-1);
+         }
+
     }//GEN-LAST:event_btnPlayTournamentActionPerformed
 
     private void btnPlayMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayMatchActionPerformed
-        game.playMatch();
-        initObjects();
-        /*if (counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
+        if (counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
             counter += 1;
             game.playMatch();
             //newList = game.playMatch();
@@ -236,25 +228,23 @@ public class Main extends javax.swing.JFrame {
         else{
             System.out.println("Hiiiiiiiiiiii");
             //Poner un alert que diga que ya se acabo
-        }*/
+        }
     }//GEN-LAST:event_btnPlayMatchActionPerformed
 
-    public void updatedLstStats(){
-        String[][] newData = new String[game.getTeamsLstSize()][8];
+   public void updatedLstStats(){
+        String[][] data = new String[game.getTeamsLstSize()][8];
         for (int i = 0; i < game.getTeamsLstSize(); i++) {
-            newData[i][0] = newList.get(i).getName();
-            newData[i][1] = String.valueOf(newList.get(i).getWins());
-            newData[i][2] = String.valueOf(newList.get(i).getLosses());
-            newData[i][3] = String.valueOf(newList.get(i).getDraws());
-            newData[i][4] = String.valueOf(newList.get(i).getGoalsScored());
-            newData[i][5] = String.valueOf(newList.get(i).getGoalsConceded());
-            newData[i][6] = String.valueOf(newList.get(i).getMatchesPlayed());
-            newData[i][7] = String.valueOf(newList.get(i).getPoints());
+            data[i][0] = lstTeams.get(i).getName();
+            data[i][1] = String.valueOf(lstTeams.get(i).getWins());
+            data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
+            data[i][3] = String.valueOf(lstTeams.get(i).getDraws());
+            data[i][4] = String.valueOf(lstTeams.get(i).getGoalsScored());
+            data[i][5] = String.valueOf(lstTeams.get(i).getGoalsConceded());
+            data[i][6] = String.valueOf(lstTeams.get(i).getMatchesPlayed());
+            data[i][7] = String.valueOf(lstTeams.get(i).getPoints());
         }
-        tableModel.setDataVector(newData, COLUMNS);
-        tblStats.setModel(tableModel);
-        
-        
+        tableModel.setDataVector(data, COLUMNS);
+        tblStats.setModel(tableModel);    
     }
     
     /*TODO Crear un alert que me muestre el ganador(podemos poner que cuando counter==)
