@@ -203,7 +203,7 @@ public class Main extends javax.swing.JFrame {
             initObjects();
         }
         else{
-            System.out.println("holaa putas");
+            System.out.println("holaa ");
             //Poner un alert que diga que ya se acabo
         }
         
