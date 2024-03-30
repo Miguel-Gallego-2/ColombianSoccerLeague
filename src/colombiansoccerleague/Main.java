@@ -8,6 +8,8 @@ public class Main extends javax.swing.JFrame {
     Match game = new Match();
     ArrayList<Team> lstTeams = game.getLstTeams();
     String[] COLUMNS = {"Name", "W", "L","D","GS","GC","M","Pts"};
+    String[] SCOLUMNS = {"Team1", "GoalsTeam1", "GoalsTeam2","Team2"};
+    
     DefaultTableModel tableModel;
     ArrayList<Team> newList;
     int counter = 0;
@@ -31,6 +33,23 @@ public class Main extends javax.swing.JFrame {
             data[i][5] = String.valueOf(lstTeams.get(i).getGoalsConceded());
             data[i][6] = String.valueOf(lstTeams.get(i).getMatchesPlayed());
             data[i][7] = String.valueOf(lstTeams.get(i).getPoints());
+        }
+        tableModel = new DefaultTableModel(data, COLUMNS) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblStats.setModel(tableModel);
+        tblStats.setAutoCreateRowSorter(true);
+    }
+    private void initSObjects() {
+        String[][] data = new String[game.getTeamsLstSize()][4];
+        for (int i = 0; i < game.getTeamsLstSize(); i++) {
+            data[i][0] = lstTeams.get(i).getName();
+            data[i][1] = String.valueOf(lstTeams.get(i).getWins());
+            data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
+            data[i][3] = String.valueOf(lstTeams.get(i).getDraws());
         }
         tableModel = new DefaultTableModel(data, COLUMNS) {
             @Override
