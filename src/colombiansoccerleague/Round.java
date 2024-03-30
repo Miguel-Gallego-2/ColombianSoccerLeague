@@ -43,7 +43,6 @@ public class Round {
     
     public Team getRandomTeam() {
         int random1 = getRandomTeamIndex(toPlay);
-        Team team=toPlay.get(random1);
         return toPlay.get(random1);
     }
 /*

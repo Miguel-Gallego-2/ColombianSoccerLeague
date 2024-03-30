@@ -6,7 +6,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class Main extends javax.swing.JFrame {
     Match game = new Match();
-    ArrayList<Team> lstTeams = game.getLstTeams();
+     ArrayList<Team> lstTeams = new ArrayList<>();
+     ArrayList<Match> totalMatches = new ArrayList<>();
+     
     String[] COLUMNS = {"Name", "W", "L","D","GS","GC","M","Pts"};
     String[] SCOLUMNS = {"Team1", "GoalsTeam1", "GoalsTeam2","Team2"};
     
@@ -22,7 +24,7 @@ public class Main extends javax.swing.JFrame {
        
     }
         //Create a method to add the name of the Teams in an ArrayList.
-    public void insertNameTeams(ArrayList<String> lstStringTeams) {
+    /*public void insertNameTeams() {
         lstStringTeams.add("Atletico Nacional");
         lstStringTeams.add("América de Cali");
         lstStringTeams.add("Independiente Santa Fe");
@@ -30,29 +32,39 @@ public class Main extends javax.swing.JFrame {
         lstStringTeams.add("Deportes Tolima");
         lstStringTeams.add("Independiente Medellín");
 
-    }
+    }*/
     
       //Create multiple teams objects with the name attribute given by the String ArrayList with names.
-    public void insertTeams(ArrayList<String> lstStringTeams, ArrayList<Team> lstTeams) {
+    public ArrayList<Team> initTeams() {
+        ArrayList<String> lstStringTeams = new ArrayList<>();
+        //ArrayList<Team> lstTeams = new ArrayList<>();
+        lstStringTeams.add("Atletico Nacional");
+        lstStringTeams.add("América de Cali");
+        lstStringTeams.add("Independiente Santa Fe");
+        lstStringTeams.add("Deportivo Cali");
+        lstStringTeams.add("Deportes Tolima");
+        lstStringTeams.add("Independiente Medellín");
         for (int i = 0; i < lstStringTeams.size(); i++) {
             Team team = new Team();
             team.setName(lstStringTeams.get(i));
             team.setIdTeam(i);
             lstTeams.add(team);
         }
+        return lstTeams;
     }
     
     
     public void playTournament() {
-    initTeamList();
+    lstTeams=initTeams();
+    
     var NUMROUNDS = lstTeams.size() - 1;
     for (int i = 0; i < NUMROUNDS; i++) {
         playRound();
     }
     }
     private void initObjects() {
-        String[][] data = new String[game.getTeamsLstSize()][8];
-        for (int i = 0; i < game.getTeamsLstSize(); i++) {
+        String[][] data = new String[lstTeams.size()][8];
+        for (int i = 0; i < lstTeams.size(); i++) {
             data[i][0] = lstTeams.get(i).getName();
             data[i][1] = String.valueOf(lstTeams.get(i).getWins());
             data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
