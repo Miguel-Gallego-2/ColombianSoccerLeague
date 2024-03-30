@@ -1,32 +1,25 @@
-
 package colombiansoccerleague;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class Main extends javax.swing.JFrame {
-    Match game = new Match();
-     ArrayList<Team> lstTeams = new ArrayList<>();
-     ArrayList<Team> lstTeams2 = new ArrayList<>();
-     ArrayList<Match> totalMatches = new ArrayList<>();
-     
-    String[] COLUMNS = {"Name", "W", "L","D","GS","GC","M","Pts"};
-    String[] SCOLUMNS = {"Team1", "GoalsTeam1", "GoalsTeam2","Team2"};
-    
+
+    ArrayList<Team> lstTeams = new ArrayList<>();
+    ArrayList<Team> lstTeams2 = new ArrayList<>();
+    ArrayList<Match> totalMatches;
+    String[] COLUMNS = {"Name", "W", "L", "D", "GS", "GC", "M", "Pts"};
+    String[] SCOLUMNS = {"Team1", "GoalsTeam1", "GoalsTeam2", "Team2"};
     DefaultTableModel tableModel;
-    ArrayList<Team> newList;
-    int counter = 0;
-    
+
     public Main() {
-       lstTeams = initTeams();
-       ArrayList<Team> lstTeams2 = new ArrayList<>(lstTeams);
-       this.lstTeams2 = lstTeams2;
-       initComponents();
-       initObjects();
-       
-       
+        //lstTeams = initTeams();
+        initComponents();
+        initObjects();
+
     }
-        //Create a method to add the name of the Teams in an ArrayList.
+    //Create a method to add the name of the Teams in an ArrayList.
+
     /*public void insertNameTeams() {
         lstStringTeams.add("Atletico Nacional");
         lstStringTeams.add("América de Cali");
@@ -36,8 +29,8 @@ public class Main extends javax.swing.JFrame {
         lstStringTeams.add("Independiente Medellín");
 
     }*/
-    
-      //Create multiple teams objects with the name attribute given by the String ArrayList with names.
+
+    //Create multiple teams objects with the name attribute given by the String ArrayList with names.
     public ArrayList<Team> initTeams() {
         ArrayList<String> lstStringTeams = new ArrayList<>();
         //ArrayList<Team> lstTeams = new ArrayList<>();
@@ -55,45 +48,32 @@ public class Main extends javax.swing.JFrame {
         }
         return lstTeams;
     }
-    
-    
+
     public void playTournament() {
-    lstTeams=initTeams();
-    Round round = new Round();
-    var NUMROUNDS = lstTeams.size() - 1;
-    for (int i = 0; i < NUMROUNDS; i++) {
-        ArrayList<Match> temp = round.playRound();
-        totalMatches.addAll(temp);
-    }
-    }
-    private void initObjects() {
-        String[][] data = new String[lstTeams2.size()][8];
-        for (int i = 0; i < lstTeams2.size(); i++) {
-            data[i][0] = lstTeams2.get(i).getName();
-            data[i][1] = String.valueOf(lstTeams2.get(i).getWins());
-            data[i][2] = String.valueOf(lstTeams2.get(i).getLosses());
-            data[i][3] = String.valueOf(lstTeams2.get(i).getDraws());
-            data[i][4] = String.valueOf(lstTeams2.get(i).getGoalsScored());
-            data[i][5] = String.valueOf(lstTeams2.get(i).getGoalsConceded());
-            data[i][6] = String.valueOf(lstTeams2.get(i).getMatchesPlayed());
-            data[i][7] = String.valueOf(lstTeams2.get(i).getPoints());
+        this.totalMatches = new ArrayList<>();
+        lstTeams = initTeams();
+        ArrayList<Team> roundTeams = lstTeams;
+        var NUMROUNDS = lstTeams.size() - 1;
+        for (int i = 0; i < NUMROUNDS; i++) {
+            Round round = new Round(roundTeams);
+            roundTeams = round.playRound();
+            ArrayList<Match> roundMatches = round.getRoundMatches();
+            this.totalMatches.addAll(roundMatches);
         }
-        tableModel = new DefaultTableModel(data, COLUMNS) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        tblStats.setModel(tableModel);
-        tblStats.setAutoCreateRowSorter(true);
+        lstTeams=roundTeams;
     }
-    private void initSObjects() {
-        String[][] data = new String[totalMatches.size()][4];
-        for (int i = 0; i < totalMatches.size(); i++) {
+
+    private void initObjects() {
+        String[][] data = new String[lstTeams.size()][8];
+        for (int i = 0; i < lstTeams.size(); i++) {
             data[i][0] = lstTeams.get(i).getName();
             data[i][1] = String.valueOf(lstTeams.get(i).getWins());
             data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
             data[i][3] = String.valueOf(lstTeams.get(i).getDraws());
+            data[i][4] = String.valueOf(lstTeams.get(i).getGoalsScored());
+            data[i][5] = String.valueOf(lstTeams.get(i).getGoalsConceded());
+            data[i][6] = String.valueOf(lstTeams.get(i).getMatchesPlayed());
+            data[i][7] = String.valueOf(lstTeams.get(i).getPoints());
         }
         tableModel = new DefaultTableModel(data, COLUMNS) {
             @Override
@@ -104,8 +84,26 @@ public class Main extends javax.swing.JFrame {
         tblStats.setModel(tableModel);
         tblStats.setAutoCreateRowSorter(true);
     }
-    
-@SuppressWarnings("unchecked")
+
+    private void initSObjects() {
+        String[][] data = new String[totalMatches.size()][4];
+        for (int i = 0; i < totalMatches.size(); i++) {
+            data[i][0] = totalMatches.get(i).getTeam1().getName();
+            data[i][1] = String.valueOf(lstTeams.get(i).getWins());
+            data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
+            data[i][3] = totalMatches.get(i).getTeam2().getName();
+        }
+        tableModel = new DefaultTableModel(data, SCOLUMNS) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblRecap.setModel(tableModel);
+        tblRecap.setAutoCreateRowSorter(true);
+    }
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -212,11 +210,11 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(btnPlayTournament)
                         .addGap(300, 300, 300))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(145, 145, 145))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblRecap)
-                        .addGap(251, 251, 251))))
+                        .addGap(251, 251, 251))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,8 +232,8 @@ public class Main extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(216, 216, 216))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(148, 148, 148))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -269,12 +267,13 @@ public class Main extends javax.swing.JFrame {
             System.out.println("holaa ");
             //Poner un alert que diga que ya se acabo
         }*/
-        
-        
+
+
     }//GEN-LAST:event_btnPlayRoundActionPerformed
 
     private void btnPlayTournamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayTournamentActionPerformed
         playTournament();
+        initObjects();
         initSObjects();
         /*
         if (counter==0){
@@ -291,7 +290,7 @@ public class Main extends javax.swing.JFrame {
     private void btnPlayMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayMatchActionPerformed
         /*game.playMatch();
         initObjects();*/
-        /*if (counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
+ /*if (counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
             counter += 1;
             game.playMatch();
             //newList = game.playMatch();
@@ -303,7 +302,7 @@ public class Main extends javax.swing.JFrame {
             //Poner un alert que diga que ya se acabo
         }*/
     }//GEN-LAST:event_btnPlayMatchActionPerformed
-/*
+    /*
     public void updatedLstStats(){
         String[][] newData = new String[game.getTeamsLstSize()][8];
         for (int i = 0; i < game.getTeamsLstSize(); i++) {
@@ -321,13 +320,11 @@ public class Main extends javax.swing.JFrame {
         
         
     }*/
-    
-    /*TODO Crear un alert que me muestre el ganador(podemos poner que cuando counter==)
+
+ /*TODO Crear un alert que me muestre el ganador(podemos poner que cuando counter==)
     if(counter==game.getLstSize()/2)*(game.getLstSize()-1) do el alert con el ganador*/
-    
-    
     public static void main(String args[]) {
-      
+
         java.awt.EventQueue.invokeLater(() -> {
             new Main().setVisible(true);
         });

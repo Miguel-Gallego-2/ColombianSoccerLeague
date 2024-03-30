@@ -42,6 +42,11 @@ public class Match {
         this.goalsTeam2 = goalsTeam2;
     }
 
+    public Match(Team team1, Team team2) {
+        this.team1 = team1;
+        this.team2 = team2;
+    }
+
    
     public Match() {
 
@@ -79,17 +84,17 @@ public class Match {
         
     }
   
-    public void playMatch(Team team1,Team team2) {
-        faceOff(team1, team2);
-        team1.updatePlayedTeamList(team2);
-        team2.updatePlayedTeamList(team1);
+    public void playMatch() {
+        faceOff(this.team1, this.team2);
+        this.team1.updatePlayedTeamList(this.team2);
+        this.team2.updatePlayedTeamList(this.team1);
         
         if (goalsTeam1 == goalsTeam2) {
             draw(team1, team2, goalsTeam1);
         } else if (goalsTeam1 < goalsTeam2) {
             winner(team2, goalsTeam2, goalsTeam1);
             losser(team1, goalsTeam1, goalsTeam2);
-        } else {
+        } else if (goalsTeam1 > goalsTeam2){
             winner(team1, goalsTeam1, goalsTeam2);
             losser(team2, goalsTeam2, goalsTeam1);
         }

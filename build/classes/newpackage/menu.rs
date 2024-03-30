@@ -1,6 +1,0 @@
-colombiansoccerleague.menu$5
-colombiansoccerleague.menu$2
-colombiansoccerleague.menu$1
-colombiansoccerleague.menu$4
-colombiansoccerleague.menu$3
-colombiansoccerleague.menu
