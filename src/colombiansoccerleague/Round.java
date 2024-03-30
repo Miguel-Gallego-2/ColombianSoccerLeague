@@ -52,11 +52,13 @@ public class Round {
             insertTeams(lstStringTeams, lstTeams);
         }
     }*/
-    public void playRound() {
+    public ArrayList<Match>  playRound() {
+        ArrayList<Match> RoundMatches = new ArrayList<>();
         var teamSize = getTeamsLstSize();
         for (int i = 0; i < teamSize / 2; i++) {
             playUniqueMatch();
         }
+        return RoundMatches;
     }
     public void playUniqueMatch(){
         Match match=new Match();

@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 public class Main extends javax.swing.JFrame {
     Match game = new Match();
      ArrayList<Team> lstTeams = new ArrayList<>();
+     ArrayList<Team> lstTeams2 = new ArrayList<>();
      ArrayList<Match> totalMatches = new ArrayList<>();
      
     String[] COLUMNS = {"Name", "W", "L","D","GS","GC","M","Pts"};
@@ -17,8 +18,10 @@ public class Main extends javax.swing.JFrame {
     int counter = 0;
     
     public Main() {
+       lstTeams = initTeams();
+       ArrayList<Team> lstTeams2 = new ArrayList<>(lstTeams);
+       this.lstTeams2 = lstTeams2;
        initComponents();
-       game.initTeamList();
        initObjects();
        
        
@@ -56,23 +59,24 @@ public class Main extends javax.swing.JFrame {
     
     public void playTournament() {
     lstTeams=initTeams();
-    
+    Round round = new Round();
     var NUMROUNDS = lstTeams.size() - 1;
     for (int i = 0; i < NUMROUNDS; i++) {
-        playRound();
+        ArrayList<Match> temp = round.playRound();
+        totalMatches.addAll(temp);
     }
     }
     private void initObjects() {
-        String[][] data = new String[lstTeams.size()][8];
-        for (int i = 0; i < lstTeams.size(); i++) {
-            data[i][0] = lstTeams.get(i).getName();
-            data[i][1] = String.valueOf(lstTeams.get(i).getWins());
-            data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
-            data[i][3] = String.valueOf(lstTeams.get(i).getDraws());
-            data[i][4] = String.valueOf(lstTeams.get(i).getGoalsScored());
-            data[i][5] = String.valueOf(lstTeams.get(i).getGoalsConceded());
-            data[i][6] = String.valueOf(lstTeams.get(i).getMatchesPlayed());
-            data[i][7] = String.valueOf(lstTeams.get(i).getPoints());
+        String[][] data = new String[lstTeams2.size()][8];
+        for (int i = 0; i < lstTeams2.size(); i++) {
+            data[i][0] = lstTeams2.get(i).getName();
+            data[i][1] = String.valueOf(lstTeams2.get(i).getWins());
+            data[i][2] = String.valueOf(lstTeams2.get(i).getLosses());
+            data[i][3] = String.valueOf(lstTeams2.get(i).getDraws());
+            data[i][4] = String.valueOf(lstTeams2.get(i).getGoalsScored());
+            data[i][5] = String.valueOf(lstTeams2.get(i).getGoalsConceded());
+            data[i][6] = String.valueOf(lstTeams2.get(i).getMatchesPlayed());
+            data[i][7] = String.valueOf(lstTeams2.get(i).getPoints());
         }
         tableModel = new DefaultTableModel(data, COLUMNS) {
             @Override
@@ -84,8 +88,8 @@ public class Main extends javax.swing.JFrame {
         tblStats.setAutoCreateRowSorter(true);
     }
     private void initSObjects() {
-        String[][] data = new String[game.getTeamsLstSize()][4];
-        for (int i = 0; i < game.getTeamsLstSize(); i++) {
+        String[][] data = new String[totalMatches.size()][4];
+        for (int i = 0; i < totalMatches.size(); i++) {
             data[i][0] = lstTeams.get(i).getName();
             data[i][1] = String.valueOf(lstTeams.get(i).getWins());
             data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
@@ -254,7 +258,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlayRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayRoundActionPerformed
-        if (counter<=game.getTeamsLstSize()){
+        /*if (counter<=game.getTeamsLstSize()){
             counter += game.getTeamsLstSize()/2; 
             game.playRound();
             //newList = game.playRound();
@@ -264,14 +268,16 @@ public class Main extends javax.swing.JFrame {
         else{
             System.out.println("holaa ");
             //Poner un alert que diga que ya se acabo
-        }
+        }*/
         
         
     }//GEN-LAST:event_btnPlayRoundActionPerformed
 
     private void btnPlayTournamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayTournamentActionPerformed
+        playTournament();
+        initSObjects();
+        /*
         if (counter==0){
-            game.playTournament();
             //newList = game.playTournament();
             //updatedLstStats();
             initObjects();
@@ -279,12 +285,12 @@ public class Main extends javax.swing.JFrame {
         }
         else{
             //Poner un alert que diga que ya se acabo
-        }
+        }*/
     }//GEN-LAST:event_btnPlayTournamentActionPerformed
 
     private void btnPlayMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayMatchActionPerformed
-        game.playMatch();
-        initObjects();
+        /*game.playMatch();
+        initObjects();*/
         /*if (counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
             counter += 1;
             game.playMatch();
@@ -297,7 +303,7 @@ public class Main extends javax.swing.JFrame {
             //Poner un alert que diga que ya se acabo
         }*/
     }//GEN-LAST:event_btnPlayMatchActionPerformed
-
+/*
     public void updatedLstStats(){
         String[][] newData = new String[game.getTeamsLstSize()][8];
         for (int i = 0; i < game.getTeamsLstSize(); i++) {
@@ -314,7 +320,7 @@ public class Main extends javax.swing.JFrame {
         tblStats.setModel(tableModel);
         
         
-    }
+    }*/
     
     /*TODO Crear un alert que me muestre el ganador(podemos poner que cuando counter==)
     if(counter==game.getLstSize()/2)*(game.getLstSize()-1) do el alert con el ganador*/

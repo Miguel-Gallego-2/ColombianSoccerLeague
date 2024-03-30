@@ -7,6 +7,8 @@ package colombiansoccerleague;
 public class Match {
     private Team team1;
     private Team team2;
+    private int goalsTeam1;
+    private int goalsTeam2;
 
     public Team getTeam1() {
         return team1;
@@ -39,8 +41,7 @@ public class Match {
     public void setGoalsTeam2(int goalsTeam2) {
         this.goalsTeam2 = goalsTeam2;
     }
-    private int goalsTeam1;
-    private int goalsTeam2;
+
    
     public Match() {
 
