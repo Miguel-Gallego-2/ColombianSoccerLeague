@@ -5,14 +5,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class Main extends javax.swing.JFrame {
 
-    ArrayList<Team> lstTeams = new ArrayList<>();
-    ArrayList<Team> lstTeams2 = new ArrayList<>();
+    ArrayList<Team> lstTeams;
     ArrayList<Match> totalMatches;
     String[] COLUMNS = {"Name", "W", "L", "D", "GS", "GC", "M", "Pts"};
     String[] SCOLUMNS = {"Team1", "GoalsTeam1", "GoalsTeam2", "Team2"};
     DefaultTableModel tableModel;
 
     public Main() {
+        lstTeams= new ArrayList<>();
         //lstTeams = initTeams();
         initComponents();
         initObjects();
@@ -32,6 +32,7 @@ public class Main extends javax.swing.JFrame {
 
     //Create multiple teams objects with the name attribute given by the String ArrayList with names.
     public ArrayList<Team> initTeams() {
+        lstTeams= new ArrayList<>();
         ArrayList<String> lstStringTeams = new ArrayList<>();
         //ArrayList<Team> lstTeams = new ArrayList<>();
         lstStringTeams.add("Atletico Nacional");
