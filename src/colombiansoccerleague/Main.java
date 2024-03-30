@@ -10,6 +10,7 @@ public class Main extends javax.swing.JFrame {
     String[] COLUMNS = {"Name", "W", "L", "D", "GS", "GC", "M", "Pts"};
     String[] SCOLUMNS = {"Team1", "GoalsTeam1", "GoalsTeam2", "Team2"};
     DefaultTableModel tableModel;
+    
 
     public Main() {
         lstTeams= new ArrayList<>();
@@ -50,19 +51,6 @@ public class Main extends javax.swing.JFrame {
         return lstTeams;
     }
 
-    public void playTournament() {
-        this.totalMatches = new ArrayList<>();
-        lstTeams = initTeams();
-        ArrayList<Team> roundTeams = lstTeams;
-        var NUMROUNDS = lstTeams.size() - 1;
-        for (int i = 0; i < NUMROUNDS; i++) {
-            Round round = new Round(roundTeams);
-            roundTeams = round.playRound();
-            ArrayList<Match> roundMatches = round.getRoundMatches();
-            this.totalMatches.addAll(roundMatches);
-        }
-        lstTeams=roundTeams;
-    }
 
     private void initObjects() {
         String[][] data = new String[lstTeams.size()][8];
@@ -90,8 +78,8 @@ public class Main extends javax.swing.JFrame {
         String[][] data = new String[totalMatches.size()][4];
         for (int i = 0; i < totalMatches.size(); i++) {
             data[i][0] = totalMatches.get(i).getTeam1().getName();
-            data[i][1] = String.valueOf(lstTeams.get(i).getWins());
-            data[i][2] = String.valueOf(lstTeams.get(i).getLosses());
+            data[i][1] = String.valueOf(totalMatches.get(i).getGoalsTeam1());
+            data[i][2] = String.valueOf(totalMatches.get(i).getGoalsTeam2());
             data[i][3] = totalMatches.get(i).getTeam2().getName();
         }
         tableModel = new DefaultTableModel(data, SCOLUMNS) {
@@ -102,6 +90,19 @@ public class Main extends javax.swing.JFrame {
         };
         tblRecap.setModel(tableModel);
         tblRecap.setAutoCreateRowSorter(true);
+    }
+    public void playTournament() {
+        this.totalMatches = new ArrayList<>();
+        lstTeams = initTeams();
+        ArrayList<Team> roundTeams = lstTeams;
+        var NUMROUNDS = lstTeams.size() - 1;
+        for (int i = 0; i < NUMROUNDS; i++) {
+            Round round = new Round(roundTeams);
+            roundTeams = round.playRound();
+            ArrayList<Match> roundMatches = round.getRoundMatches();
+            this.totalMatches.addAll(roundMatches);
+        }
+        lstTeams=roundTeams;
     }
 
     @SuppressWarnings("unchecked")
@@ -257,6 +258,15 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlayRoundActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayRoundActionPerformed
+        this.totalMatches = new ArrayList<>();
+        
+        ArrayList<Team> roundTeams = lstTeams;
+        Round round = new Round(roundTeams);
+        roundTeams = round.playRound();
+        ArrayList<Match> roundMatches = round.getRoundMatches();
+        this.totalMatches.addAll(roundMatches);
+        initObjects();
+        initSObjects();
         /*if (counter<=game.getTeamsLstSize()){
             counter += game.getTeamsLstSize()/2; 
             game.playRound();

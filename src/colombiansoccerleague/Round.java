@@ -75,7 +75,6 @@ public class Round {
             Match match=playUniqueMatch();
             this.roundMatches.add(match);
         }
-        //return RoundMatches;
         return alredyPlayed;
     }
     
@@ -84,12 +83,16 @@ public class Round {
         toPlay.remove(team1);
         //Team team2 =new Team();
         Team team2=getRandomTeam();
-        /*if(team1.getPlayedTeam().contains(team2)){
+        if(team1.getPlayedTeam().contains(team2)){
             team2=getRandomTeam();
-        }*/
+        }
         toPlay.remove(team2);
         Match match=new Match(team1,team2);
         match.playMatch();
+        team1.setMatchesPlayed(1);
+        team2.setMatchesPlayed(1);
+        team1.updatePlayedTeamList(team2);
+        team2.updatePlayedTeamList(team1);
         alredyPlayed.add(team1);
         alredyPlayed.add(team2);
         return match;

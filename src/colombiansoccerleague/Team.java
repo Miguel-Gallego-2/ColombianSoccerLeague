@@ -19,11 +19,11 @@ public class Team {
     private ArrayList<Team> playedTeam =new ArrayList<>() ;
     private int idTeam;
     public int getMatchesPlayed() {
-        return playedTeam.size();
+        return matchesPlayed;
     }
 
     public void setMatchesPlayed(int matchesPlayed) {
-        this.matchesPlayed = matchesPlayed;
+        this.matchesPlayed += matchesPlayed;
     }
 
     public Team() {
