@@ -22,6 +22,13 @@ public class Main extends javax.swing.JFrame {
        
     }
     
+    public void playTournament() {
+    initTeamList();
+    var NUMROUNDS = lstTeams.size() - 1;
+    for (int i = 0; i < NUMROUNDS; i++) {
+        playRound();
+    }
+    }
     private void initObjects() {
         String[][] data = new String[game.getTeamsLstSize()][8];
         for (int i = 0; i < game.getTeamsLstSize(); i++) {
