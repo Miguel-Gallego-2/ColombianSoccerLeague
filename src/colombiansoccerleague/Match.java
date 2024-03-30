@@ -4,32 +4,46 @@
  */
 package colombiansoccerleague;
 
-import java.util.ArrayList;
-
 public class Match {
+    private Team team1;
+    private Team team2;
+
+    public Team getTeam1() {
+        return team1;
+    }
+
+    public void setTeam1(Team team1) {
+        this.team1 = team1;
+    }
+
+    public Team getTeam2() {
+        return team2;
+    }
+
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
+    }
+
+    public int getGoalsTeam1() {
+        return goalsTeam1;
+    }
+
+    public void setGoalsTeam1(int goalsTeam1) {
+        this.goalsTeam1 = goalsTeam1;
+    }
+
+    public int getGoalsTeam2() {
+        return goalsTeam2;
+    }
+
+    public void setGoalsTeam2(int goalsTeam2) {
+        this.goalsTeam2 = goalsTeam2;
+    }
     private int goalsTeam1;
     private int goalsTeam2;
-    
-
-    public ArrayList<String> lstStringTeams = new ArrayList<>();
-    public ArrayList<Team> lstTeams = new ArrayList<>();
+   
     public Match() {
 
-    }
-
-    //Create a method to add the name of the Teams in an ArrayList.
-    public void insertNameTeams(ArrayList<String> lstStringTeams) {
-        lstStringTeams.add("Atletico Nacional");
-        lstStringTeams.add("América de Cali");
-        lstStringTeams.add("Independiente Santa Fe");
-        lstStringTeams.add("Deportivo Cali");
-        lstStringTeams.add("Deportes Tolima");
-        lstStringTeams.add("Independiente Medellín");
-
-    }
-
-    public ArrayList<Team> getLstTeams() {
-        return lstTeams;
     }
 
     public void winner(Team team, int goalsScored, int goalsConceded) {
@@ -63,10 +77,7 @@ public class Match {
        goalsTeam2 = (int) (Math.random() * 5);
         
     }
-    public int getTeamsLstSize() {
-        var teamSize = lstTeams.size();
-        return teamSize;
-    }
+  
     public void playMatch(Team team1,Team team2) {
         faceOff(team1, team2);
         team1.updatePlayedTeamList(team2);
@@ -82,15 +93,5 @@ public class Match {
             losser(team2, goalsTeam2, goalsTeam1);
         }
         
-        /*System.out.println(team1.toString(team1));
-        team1.setPlaying(true);
-        team2.setPlaying(true);
-        System.out.println(team2.toString(team2));
-        System.out.println("other macht");
-        int counter =0;
-        for(int i = 0 ; i < getTeamsLstSize() ; i++){
-            if(lstTeams.get(i).isPlaying()){counter += 1;}}
-        if (counter == getTeamsLstSize()){
-        lstTeams.forEach(Team->Team.setPlaying(false));}*/
     }
 }

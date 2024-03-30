@@ -21,6 +21,27 @@ public class Main extends javax.swing.JFrame {
        
        
     }
+        //Create a method to add the name of the Teams in an ArrayList.
+    public void insertNameTeams(ArrayList<String> lstStringTeams) {
+        lstStringTeams.add("Atletico Nacional");
+        lstStringTeams.add("América de Cali");
+        lstStringTeams.add("Independiente Santa Fe");
+        lstStringTeams.add("Deportivo Cali");
+        lstStringTeams.add("Deportes Tolima");
+        lstStringTeams.add("Independiente Medellín");
+
+    }
+    
+      //Create multiple teams objects with the name attribute given by the String ArrayList with names.
+    public void insertTeams(ArrayList<String> lstStringTeams, ArrayList<Team> lstTeams) {
+        for (int i = 0; i < lstStringTeams.size(); i++) {
+            Team team = new Team();
+            team.setName(lstStringTeams.get(i));
+            team.setIdTeam(i);
+            lstTeams.add(team);
+        }
+    }
+    
     
     public void playTournament() {
     initTeamList();

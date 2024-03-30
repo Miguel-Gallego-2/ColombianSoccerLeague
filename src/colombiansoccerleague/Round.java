@@ -11,100 +11,67 @@ import java.util.ArrayList;
  * @author migue
  */
 public class Round {
-    private Team team1;
-    private int goalsTeam1;
-    private Team team2;
-    private int goalsTeam2;
+    
     public ArrayList<Team> alredyPlayed = new ArrayList<>();
     public ArrayList<Team> toPlay = new ArrayList<>();
 
-
-    public Team getTeam1() {
-        return team1;
-    }
-
-    public void setTeam1(Team team1) {
-        this.team1 = team1;
-    }
-
-    public int getGoalsTeam1() {
-        return goalsTeam1;
-    }
-
-    public void setGoalsTeam1(int goalsTeam1) {
-        this.goalsTeam1 = goalsTeam1;
-    }
-
-    public Team getTeam2() {
-        return team2;
-    }
-
-    public void setTeam2(Team team2) {
-        this.team2 = team2;
-    }
-
-    public int getGoalsTeam2() {
-        return goalsTeam2;
-    }
-
-    public void setGoalsTeam2(int goalsTeam2) {
-        this.goalsTeam2 = goalsTeam2;
-    }
-
     public Round() {
     }
-    
-      //Create multiple teams objects with the name attribute given by the String ArrayList with names.
-    public void insertTeams(ArrayList<String> lstStringTeams, ArrayList<Team> lstTeams) {
-        for (int i = 0; i < lstStringTeams.size(); i++) {
-            Team team = new Team();
-            team.setName(lstStringTeams.get(i));
-            team.setIdTeam(i);
-            lstTeams.add(team);
-        }
-    }
+ 
+        /*System.out.println(team1.toString(team1));
+        team1.setPlaying(true);
+        team2.setPlaying(true);
+        System.out.println(team2.toString(team2));
+        System.out.println("other macht");
+        int counter =0;
+        for(int i = 0 ; i < getTeamsLstSize() ; i++){
+            if(lstTeams.get(i).isPlaying()){counter += 1;}}
+        if (counter == getTeamsLstSize()){
+        lstTeams.forEach(Team->Team.setPlaying(false));}*/
     
      //Get a Random index to pick a team in the Teams ArrayList.
     public int getRandomTeamIndex(ArrayList<Team> lstTeams) {
         int a = lstTeams.size();
-        index = (int) (Math.random() * a);
-        return index;
+        return (int) (Math.random() * a);
+    }
+    
+      public int getTeamsLstSize() {
+        var teamSize = toPlay.size();
+        return teamSize;
     }
     
     
-    public Team getTeam1() {
-        int random1 = getRandomTeamIndex(lstTeams);
-        /*Team team = lstTeams.stream()
-                .filter(x -> x.getName().equals(lstTeams.get(random1).getName()))
-                .findFirst()
-                .orElse(new Team());*/
-        return lstTeams.get(random1);
+    public Team getRandomTeam() {
+        int random1 = getRandomTeamIndex(toPlay);
+        Team team=toPlay.get(random1);
+        return toPlay.get(random1);
     }
-
-    public Team getTeam2() {
-        int random2 = getRandomTeamIndex(lstTeams);
-        /*Team team = lstTeams.stream()
-                .filter(x -> x.getName().equals(lstTeams.get(random2).getName()))
-                .findFirst()
-                .orElse(new Team());*/
-        return lstTeams.get(random2);
-    }
-
+/*
     public void initTeamList() {
         if (lstTeams.isEmpty()) {
             insertNameTeams(lstStringTeams);
             insertTeams(lstStringTeams, lstTeams);
         }
-    }
+    }*/
     public void playRound() {
-        initTeamList();
         var teamSize = getTeamsLstSize();
         for (int i = 0; i < teamSize / 2; i++) {
-            playMatch();
-            if (i == teamSize / 2 - 1) {
-                lstTeams.forEach(Team -> Team.setPlaying(false));
-            }
+            playUniqueMatch();
         }
+    }
+    public void playUniqueMatch(){
+        Match match=new Match();
+        Team team1=getRandomTeam();
+        toPlay.remove(team1);
+        Team team2 =new Team();
+        if(team1.getPlayedTeam().contains(team2)){
+            team2=getRandomTeam();
+        }
+        toPlay.remove(team2);
+        match.playMatch(team1,team2);
+        alredyPlayed.add(team1);
+        alredyPlayed.add(team2);
+        
     }
 
 
