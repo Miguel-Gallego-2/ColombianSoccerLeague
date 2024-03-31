@@ -16,7 +16,7 @@ public class Team {
     private int matchesPlayed;
 
     private boolean playing;
-    private ArrayList<Team> playedTeam =new ArrayList<>() ;
+    private ArrayList<Team> playedTeam = new ArrayList<>() ;
     private int idTeam;
     public int getMatchesPlayed() {
         return matchesPlayed;
@@ -27,6 +27,7 @@ public class Team {
     }
 
     public Team() {
+       // playedTeam =new ArrayList<>() ;
     }
 
     public Team(String name, int wins, int losses, int draws, int points, int goalsScored, int goalsConceded, boolean playing, ArrayList<Team> playedTeam, int idTeam) {

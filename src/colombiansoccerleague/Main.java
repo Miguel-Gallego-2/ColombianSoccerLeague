@@ -36,7 +36,8 @@ public class Main extends javax.swing.JFrame {
         lstTeams= new ArrayList<>();
         ArrayList<String> lstStringTeams = new ArrayList<>();
         //ArrayList<Team> lstTeams = new ArrayList<>();
-        lstStringTeams.add("Atletico Nacional");
+        //lstStringTeams.add("Atletico Nacional");
+        lstStringTeams.add("            ");
         lstStringTeams.add("América de Cali");
         lstStringTeams.add("Independiente Santa Fe");
         lstStringTeams.add("Deportivo Cali");
