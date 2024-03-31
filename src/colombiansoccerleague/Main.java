@@ -36,13 +36,16 @@ public class Main extends javax.swing.JFrame {
         lstTeams= new ArrayList<>();
         ArrayList<String> lstStringTeams = new ArrayList<>();
         //ArrayList<Team> lstTeams = new ArrayList<>();
-        //lstStringTeams.add("Atletico Nacional");
-        lstStringTeams.add("            ");
-        lstStringTeams.add("América de Cali");
-        lstStringTeams.add("Independiente Santa Fe");
-        lstStringTeams.add("Deportivo Cali");
-        lstStringTeams.add("Deportes Tolima");
-        lstStringTeams.add("Independiente Medellín");
+        lstStringTeams.add("Nacional");
+        lstStringTeams.add("Patriotas");
+        lstStringTeams.add("Santa Fe");
+        lstStringTeams.add("Cali");
+        lstStringTeams.add("Tolima");
+        lstStringTeams.add("Medellín");
+        lstStringTeams.add("Patriotas");
+        lstStringTeams.add("Aguilas Doradas");
+        lstStringTeams.add("Millonarios");
+        lstStringTeams.add("Once Caldas");
         for (int i = 0; i < lstStringTeams.size(); i++) {
             Team team = new Team();
             team.setName(lstStringTeams.get(i));
