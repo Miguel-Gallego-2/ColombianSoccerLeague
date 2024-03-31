@@ -26,8 +26,6 @@ public class Round {
         this.alredyPlayed = new ArrayList<>();
         this.roundMatches = new ArrayList<>();
         this.matchToPlay=createRoundTeams();
-        System.out.println("1");
-
     }
 
     public ArrayList<Match> getRoundMatches() {
@@ -38,16 +36,6 @@ public class Round {
         this.roundMatches = roundMatches;
     }
 
-    /*System.out.println(team1.toString(team1));
-        team1.setPlaying(true);
-        team2.setPlaying(true);
-        System.out.println(team2.toString(team2));
-        System.out.println("other macht");
-        int counter =0;
-        for(int i = 0 ; i < getTeamsLstSize() ; i++){
-            if(lstTeams.get(i).isPlaying()){counter += 1;}}
-        if (counter == getTeamsLstSize()){
-        lstTeams.forEach(Team->Team.setPlaying(false));}*/
     //Get a Random index to pick a team in the Teams ArrayList.
     public int getRandomTeamIndex(ArrayList<Team> lstTeams) {
         int a = lstTeams.size();
@@ -64,16 +52,7 @@ public class Round {
         return toPlay.get(random1);
     }
 
-    /*
-    public void initTeamList() {
-        if (lstTeams.isEmpty()) {
-            insertNameTeams(lstStringTeams);
-            insertTeams(lstStringTeams, lstTeams);
-        }
-    }*/
     public ArrayList<Team> playRound() {
-
-        var teamSize = getTeamsLstSize();
         for (int i = 0; i < matchToPlay.size(); i++) {
             Team team1= matchToPlay.get(i).getTeam1();
             Team team2= matchToPlay.get(i).getTeam2();
@@ -95,9 +74,6 @@ public class Round {
             Team team1 = getRandomTeam(tempToPlay);
             tempToPlay.remove(team1);  
             Team team2 = getRandomTeam(tempToPlay);
-            /*while(team1==team2){
-               team2 = getRandomTeam();
-            }*/
             while (team1.getPlayedTeam().contains(team2)) {
                 team2 = getRandomTeam(tempToPlay);
                 if (z > 3) {
@@ -110,40 +86,14 @@ public class Round {
                 tempToPlay.remove(team2);
                 Match match = new Match(team1, team2);
                 matchToPlay.add(match);
-                //tempAlredyPlayed.add(team1);
-               // tempAlredyPlayed.add(team2);
             } else {
                return createRoundTeams();
             }
         }
-           // this.toPlay=tempAlredyPlayed;
-           // this.alredyPlayed=tempToPlay;
         return matchToPlay;
     }
-    
 
     public Match playUniqueMatch(Team team1, Team team2) {
-        //Team team1 = getRandomTeam();
-        //Team team1 =getFirstTeamToPlay();
-        //Team team2 =getSecondTeamToPlay();
-        //matchToPlay.remove(0);
-        //toPlay.remove(team1);
-        //toPlay.remove(team2);
-        //Team team2 =new Team();
-        //Team team2 = getRandomTeam();
-        /*
-        while (team1==team2){
-            team2=getRandomTeam();
-        }*/
-        //toPlay.remove(team1);
-        /*
-        while (team1.getPlayedTeam().contains(team2)) {
-            team2 = getRandomTeam();
-            if (team1.getPlayedTeam().contains(team2)&& team2.getPlayedTeam().contains(team1)){
-                team1=getRandomTeam();
-            }
-        }
-        toPlay.remove(team2);*/
         Match match = new Match(team1, team2);
         match.playMatch();
         team1.setMatchesPlayed(1);

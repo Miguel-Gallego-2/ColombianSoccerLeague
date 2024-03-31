@@ -14,7 +14,6 @@ public class Team {
     private int goalsScored;
     private int goalsConceded;
     private int matchesPlayed;
-
     private boolean playing;
     private ArrayList<Team> playedTeam = new ArrayList<>() ;
     private int idTeam;
