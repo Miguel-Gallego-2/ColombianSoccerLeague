@@ -2,14 +2,15 @@
 package colombiansoccerleague;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Main extends javax.swing.JFrame {
     Match game = new Match();
     ArrayList<Team> lstTeams = game.getLstTeams();
     String[] COLUMNS = {"Name", "W", "L","D","GS","GC","M","Pts"};
     DefaultTableModel tableModel;
-    ArrayList<Team> newList = new ArrayList<>();
     int counter = 0;
     
     public Main() {
@@ -37,7 +38,6 @@ public class Main extends javax.swing.JFrame {
             }
         };
         tblStats.setModel(tableModel);
-        tblStats.setAutoCreateRowSorter(true);
     }
     
 @SuppressWarnings("unchecked")
@@ -48,15 +48,23 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStats = new javax.swing.JTable();
         lblStats = new javax.swing.JLabel();
-        lblRecap = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
+        btnPlayMatch = new javax.swing.JButton();
         btnPlayRound = new javax.swing.JButton();
         btnPlayTournament = new javax.swing.JButton();
-        btnPlayMatch = new javax.swing.JButton();
-        lblTitle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        lblRecap = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblRecap = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        btnShowWinner = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(231, 231, 231));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblStats.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -79,32 +87,92 @@ public class Main extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblStats);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 470, 190));
+
+        lblStats.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        lblStats.setForeground(new java.awt.Color(183, 40, 57));
         lblStats.setText("Stats");
+        jPanel1.add(lblStats, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, -1, -1));
 
-        lblRecap.setText("Recap");
+        jPanel2.setBackground(new java.awt.Color(0, 51, 102));
 
-        btnPlayRound.setText("Play Round");
-        btnPlayRound.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlayRoundActionPerformed(evt);
-            }
-        });
+        lblTitle.setFont(new java.awt.Font("Kristen ITC", 1, 18)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(183, 40, 57));
+        lblTitle.setText("AllOutSoccer");
 
-        btnPlayTournament.setText("Play Tournament");
-        btnPlayTournament.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlayTournamentActionPerformed(evt);
-            }
-        });
-
+        btnPlayMatch.setBackground(new java.awt.Color(231, 231, 231));
+        btnPlayMatch.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnPlayMatch.setText("Play Match");
+        btnPlayMatch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(183, 40, 57), 2, true));
         btnPlayMatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPlayMatchActionPerformed(evt);
             }
         });
 
-        lblTitle.setText("Soccer For All");
+        btnPlayRound.setBackground(new java.awt.Color(231, 231, 231));
+        btnPlayRound.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnPlayRound.setText("Play Round");
+        btnPlayRound.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(183, 40, 57), 2, true));
+        btnPlayRound.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlayRoundActionPerformed(evt);
+            }
+        });
+
+        btnPlayTournament.setBackground(new java.awt.Color(231, 231, 231));
+        btnPlayTournament.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnPlayTournament.setText("Play Tournament");
+        btnPlayTournament.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(183, 40, 57), 2, true));
+        btnPlayTournament.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlayTournamentActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoSmall.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTitle)
+                .addGap(123, 123, 123)
+                .addComponent(btnPlayMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104)
+                .addComponent(btnPlayRound, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addComponent(btnPlayTournament, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPlayMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPlayRound, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPlayTournament, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTitle)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 100));
+
+        jPanel4.setBackground(new java.awt.Color(214, 216, 217));
+
+        lblRecap.setFont(new java.awt.Font("Bookman Old Style", 1, 18)); // NOI18N
+        lblRecap.setForeground(new java.awt.Color(183, 40, 57));
+        lblRecap.setText("Recap");
 
         tblRecap.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -119,74 +187,61 @@ public class Main extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tblRecap);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTitle)
-                        .addGap(102, 102, 102)
-                        .addComponent(btnPlayMatch)
-                        .addGap(211, 211, 211))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(239, 239, 239)
-                                .addComponent(lblStats))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnPlayRound)
-                        .addGap(67, 67, 67)
-                        .addComponent(btnPlayTournament)
-                        .addGap(300, 300, 300))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(145, 145, 145))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRecap)
-                        .addGap(251, 251, 251))))
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(lblRecap))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(92, 92, 92))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPlayTournament)
-                    .addComponent(btnPlayRound)
-                    .addComponent(btnPlayMatch)
-                    .addComponent(lblTitle))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStats)
-                    .addComponent(lblRecap))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(216, 216, 216))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(lblRecap)
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 480, 450));
+
+        jPanel3.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 1060, 40));
+
+        btnShowWinner.setBackground(new java.awt.Color(231, 231, 231));
+        btnShowWinner.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnShowWinner.setText("Show Winner");
+        btnShowWinner.setActionCommand("Show Winner");
+        btnShowWinner.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(183, 40, 57), 2, true));
+        btnShowWinner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowWinnerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnShowWinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 483, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1057, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,8 +256,15 @@ public class Main extends javax.swing.JFrame {
             updatedLstStats();
         }
         else{
-        
-            //Poner un alert que diga que ya se acabo
+            if(counter>=(game.getTeamsLstSize()/2) * (game.getTeamsLstSize() - 2) + 1 
+               && counter<(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
+                showMessageDialog(null, "Select another option.");
+                btnPlayRound.setEnabled(false);
+            }
+            else{
+                showMessageDialog(null, "Hold on!!!" +"\n"+ "All the rounds have already been played.");
+                disableButtons();
+            }
         }  
     }//GEN-LAST:event_btnPlayRoundActionPerformed
 
@@ -213,8 +275,18 @@ public class Main extends javax.swing.JFrame {
             //updatedLstStats();
             updatedLstStats();
             counter += game.getTeamsLstSize()/2 * (game.getTeamsLstSize()-1);
-         }
-
+            
+        }
+        else{
+            if (counter<(game.getTeamsLstSize()/2) *(game.getTeamsLstSize()-1)){
+                showMessageDialog(null, "Select another option.");
+                btnPlayTournament.setEnabled(false);
+            } 
+            else{
+                showMessageDialog(null, "Hold on!!!" +"\n"+ "The tournament have already been played.");
+                disableButtons();
+            }
+        }
     }//GEN-LAST:event_btnPlayTournamentActionPerformed
 
     private void btnPlayMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayMatchActionPerformed
@@ -226,10 +298,20 @@ public class Main extends javax.swing.JFrame {
             initObjects();
         }
         else{
-            System.out.println("Hiiiiiiiiiiii");
-            //Poner un alert que diga que ya se acabo
+           showMessageDialog(null, "Hold on!!!" +"\n"+ "All the matches have already been played.");
+           disableButtons();
         }
     }//GEN-LAST:event_btnPlayMatchActionPerformed
+
+    private void btnShowWinnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowWinnerActionPerformed
+        if(counter==(game.getTeamsLstSize()/2)*(game.getTeamsLstSize()-1)){
+            showWinner();
+            disableButtons();
+        }
+        else{
+            showMessageDialog(null, "Hold on!!!" +"\n"+ "The tournament hasn't ended.");  
+        }
+    }//GEN-LAST:event_btnShowWinnerActionPerformed
 
    public void updatedLstStats(){
         String[][] data = new String[game.getTeamsLstSize()][8];
@@ -247,12 +329,38 @@ public class Main extends javax.swing.JFrame {
         tblStats.setModel(tableModel);    
     }
     
+   public void showWinner(){
+       int maxPoints=0;
+       ArrayList<String> winners = new ArrayList<>();
+       for(Team e: lstTeams){
+          if(e.getPoints()>maxPoints){
+            maxPoints=e.getPoints();
+          }
+       }
+       for(Team e: lstTeams){
+           if(e.getPoints() == maxPoints){
+               winners.add(e.getName());
+           }  
+       }
+       if(winners.size()==1){
+        showMessageDialog(null, "The winner is "+winners);
+       }
+       else{
+        showMessageDialog(null, "The winners are "+winners);
+       }
+   }
     /*TODO Crear un alert que me muestre el ganador(podemos poner que cuando counter==)
     if(counter==game.getLstSize()/2)*(game.getLstSize()-1) do el alert con el ganador*/
     
+    public void disableButtons(){
+        if (counter== (game.getTeamsLstSize()/2) *(game.getTeamsLstSize()-1) ) {  
+            btnPlayRound.setEnabled(false);
+            btnPlayTournament.setEnabled(false);
+            btnPlayMatch.setEnabled(false);
+        }
+    }
     
     public static void main(String args[]) {
-      
         java.awt.EventQueue.invokeLater(() -> {
             new Main().setVisible(true);
         });
@@ -262,7 +370,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnPlayMatch;
     private javax.swing.JButton btnPlayRound;
     private javax.swing.JButton btnPlayTournament;
+    private javax.swing.JButton btnShowWinner;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblRecap;
