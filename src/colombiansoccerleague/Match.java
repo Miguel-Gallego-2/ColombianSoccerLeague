@@ -5,20 +5,28 @@
 package colombiansoccerleague;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Match {
     public int counter = 0;
     public Team team1;
     public Team team2;
+    private int goals1;
+    private int goals2;
     private Integer index;
     public ArrayList<String> lstStringTeams = new ArrayList<>();
     public ArrayList<Team> lstTeams = new ArrayList<>();
-    public ArrayList<Team> temptLstTeams = new ArrayList<>();
-    
-    public void showList() {
-        System.out.print(lstTeams);
+    private int userOption;
+
+    public int getUserOption() {
+        return userOption;
     }
-    
+
+    public void setUserOption(int userOption) {
+        this.userOption = userOption;
+    }
+
     public Match() {
     }
 
@@ -30,16 +38,16 @@ public class Match {
         lstStringTeams.add("Cali");
         lstStringTeams.add("Tolima");
         lstStringTeams.add("Medellín");
-        /*lstStringTeams.add("Patriotas");
+        lstStringTeams.add("Patriotas");
         lstStringTeams.add("Aguilas Doradas");
         lstStringTeams.add("Millonarios");
-        lstStringTeams.add("Once Caldas");*/
+        lstStringTeams.add("Once Caldas");
     }
-   
+
     public ArrayList<Team> getLstTeams() {
         return lstTeams;
     }
-    
+
     public int getTeamsLstSize() {
         var teamSize = lstTeams.size();
         return teamSize;
@@ -53,14 +61,14 @@ public class Match {
             lstTeams.add(team);
         }
     }
-    
+
     public void initTeamList() {
         if (lstTeams.isEmpty()) {
             insertNameTeams(lstStringTeams);
             insertTeams(lstStringTeams, lstTeams);
         }
     }
-    
+
     //Get a Random index to pick a team in the Teams ArrayList.
     public int getRandomTeamIndex(ArrayList<Team> lstTeams) {
         index = (int) (Math.random() * lstTeams.size());
@@ -91,46 +99,89 @@ public class Match {
         team2.setPoints(1);
         team2.setDraws(1);
     }
-
-    //This method is used to updated the stats of both teams.
-    public void faceOff(Team team1, Team team2) {
-        int goals1 = (int) (Math.random() * 5);
-        int goals2 = (int) (Math.random() * 5);
-        if (goals1 == goals2) {
-            draw(team1, team2, goals1);
-        } else if (goals1 < goals2) {
-            winner(team2, goals2, goals1);
-            losser(team1, goals1, goals2);
-        } else {
-            winner(team1, goals1, goals2);
-            losser(team2, goals2, goals1);
-        }
+    public void askUserScore(){
+        boolean flag;
+         do {
+            try {
+                var question = ("Insert the goals scored by " + team1.getName() + ":");
+                goals1 = Integer.parseInt(JOptionPane.showInputDialog(question));
+                flag = false;
+            } catch (Exception e) {
+                showMessageDialog(null, "Please, insert correct values");
+                flag = true;
+            }
+        }while (flag);
+          
+        do{
+            try {
+                var question = ("Insert the goals scored by " + team2.getName() + ":");
+                goals2 = Integer.parseInt(JOptionPane.showInputDialog(question));
+                flag = false;
+                } catch (Exception e) {
+                    System.out.println("Please, insert correct values");
+                    flag = true;
+                    showMessageDialog(null, "Please, insert correct values");
+                 }
+        }while (flag);
     }
     
-    public void getTeam1(){
+    //This method is used to updated the stats of both teams.
+    @SuppressWarnings("empty-statement")
+    public void faceOff(Team team1, Team team2) {
+        switch (userOption) {
+            case 0:
+                askUserScore();
+                if (goals1 == goals2) {
+                    draw(team1, team2, goals1);
+                } else if (goals1 < goals2) {
+                    winner(team2, goals2, goals1);
+                    losser(team1, goals1, goals2);
+                } else {
+                    winner(team1, goals1, goals2);
+                    losser(team2, goals2, goals1);
+                }
+                break;
+            case 1:
+                goals1 = (int) (Math.random() * 5);
+                goals2 = (int) (Math.random() * 5);
+                if (goals1 == goals2) {
+                    draw(team1, team2, goals1);
+                } else if (goals1 < goals2) {
+                    winner(team2, goals2, goals1);
+                    losser(team1, goals1, goals2);
+                } else {
+                    winner(team1, goals1, goals2);
+                    losser(team2, goals2, goals1);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void getTeam1() {
         int random1;
-        do{
+        do {
             random1 = getRandomTeamIndex(lstTeams);
             team1 = lstTeams.get(random1);
-            System.out.println("Team 1 nombre "+team1.getName());
-        }
-        while(team1.isPlaying());
+            System.out.println("Team 1 nombre " + team1.getName());
+        } while (team1.isPlaying());
     }
-    
-    public void getTeam2(){
-    int indTeam2;
-        for(Team e: lstTeams){
-            if(!team1.getPlayedTeam().contains(e)){
+
+    public void getTeam2() {
+        int indTeam2;
+        for (Team e : lstTeams) {
+            if (!team1.getPlayedTeam().contains(e)) {
                 indTeam2 = lstTeams.indexOf(e);
                 team2 = lstTeams.get(indTeam2);
-                System.out.println("Team 2 nombre "+team2.getName());
-                if(!team2.isPlaying() && !team1.equals(team2) ){
+                System.out.println("Team 2 nombre " + team2.getName());
+                if (!team2.isPlaying() && !team1.equals(team2)) {
                     break;
                 }
-            } 
+            }
         }
-    } 
-    
+    }
+
     public void playMatch() {
         getTeam1();
         getTeam2();
@@ -141,45 +192,27 @@ public class Match {
         team2.updatePlayedTeamList(team1);
         System.out.println(team1.toString(team1));
         System.out.println(team2.toString(team2));
-        counter +=1;
-        if (counter == getTeamsLstSize()/2){
-            lstTeams.forEach(Team->Team.setPlaying(false));
-            counter=0;
+        counter += 1;
+        if (counter == getTeamsLstSize() / 2) {
+            lstTeams.forEach(Team -> Team.setPlaying(false));
+            counter = 0;
         }
     }
-    
+
     public void playRound() {
         initTeamList();
         for (int i = 0; i < getTeamsLstSize() / 2; i++) {
-            System.out.println("MATCH "+ (i+1));
+            System.out.println("MATCH " + (i + 1));
             playMatch();
-            /*if (i == (getTeamsLstSize()/2) - 1) {
-                lstTeams.forEach(Team -> Team.setPlaying(false));
-            }*/
         }
     }
-    
+
     public void playTournament() {
         initTeamList();
         var NUMROUNDS = lstTeams.size() - 1;
         for (int i = 0; i < NUMROUNDS; i++) {
-            System.out.println("ROUND "+ (i+1));
+            System.out.println("ROUND " + (i + 1));
             playRound();
         }
-        printList();
-    }
-    
-    public void printList(){
-        for (int i = 0; i < getTeamsLstSize(); i++) {
-            System.out.println(lstTeams.get(i).getName());
-            System.out.println(lstTeams.get(i).getWins());
-            System.out.println(lstTeams.get(i).getLosses());
-            System.out.println(lstTeams.get(i).getDraws());
-            System.out.println(lstTeams.get(i).getGoalsScored());
-            System.out.println(lstTeams.get(i).getGoalsConceded());
-            System.out.println(lstTeams.get(i).getMatchesPlayed());
-            System.out.println(lstTeams.get(i).getPoints());
-        }
-
     }
 }

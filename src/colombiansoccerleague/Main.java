@@ -141,11 +141,11 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblTitle)
-                .addGap(123, 123, 123)
+                .addGap(141, 141, 141)
                 .addComponent(btnPlayMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104)
                 .addComponent(btnPlayRound, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(btnPlayTournament, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(119, 119, 119))
         );
@@ -219,14 +219,13 @@ public class Main extends javax.swing.JFrame {
         btnShowWinner.setBackground(new java.awt.Color(231, 231, 231));
         btnShowWinner.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnShowWinner.setText("Show Winner");
-        btnShowWinner.setActionCommand("Show Winner");
         btnShowWinner.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(183, 40, 57), 2, true));
         btnShowWinner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnShowWinnerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnShowWinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 483, 100, 30));
+        jPanel1.add(btnShowWinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 100, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
